@@ -9,9 +9,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
-app.use("/api/auth/user", authRoutes);
+app.use("/api/user", authRoutes);
 
 app.listen(3000, () => {
   console.log("server is started");
