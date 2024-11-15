@@ -7,15 +7,14 @@ export const login = async (req, res) => {
     const { token } = req.body;
     const response = await verifyCredential(token);
     if (!response.email_verified) {
-      return response.status(404).json({ error: "Email is not verified" });
+      return res.status(404).json({ error: "Email is not verified" });
     }
-
     const existingUser = await userModel.findOne({ email: response.email });
     if (existingUser) {
       generateToken(existingUser._id, res);
-
       return res.status(200).json({ message: "Signed in", data: existingUser });
     }
+
     const newUser = new userModel({
       email: response.email,
       name: response.name,
@@ -23,8 +22,8 @@ export const login = async (req, res) => {
     });
     await newUser.save();
     generateToken(newUser._id, res);
-    res.status(200).json({ message: "Signed in", newUser });
+    return res.status(200).json({ message: "Signed in", newUser });
   } catch (error) {
-    res.status(500).json({ error: "Internal server errord " + error.message });
+    res.status(500).json({ error: "Internal server error " + error.message });
   }
 };

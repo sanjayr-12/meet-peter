@@ -3,7 +3,6 @@ const client = new OAuth2Client();
 
 const verifyCredential = async (token) => {
   try {
-    console.log("came");
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.CLIENT_ID,
