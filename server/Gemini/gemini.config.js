@@ -4,7 +4,7 @@ import {
   HarmCategory,
 } from "@google/generative-ai";
 import { configDotenv } from "dotenv";
-configDotenv()
+configDotenv();
 
 const genAI = new GoogleGenerativeAI(process.env.GEM_API);
 
@@ -15,6 +15,14 @@ const safetySettings = [
   },
   {
     category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
     threshold: HarmBlockThreshold.BLOCK_NONE,
   },
 ];
