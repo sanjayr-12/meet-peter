@@ -1,8 +1,9 @@
 import { GoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
-import useStore from "../store/zustand";
+import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
   const token = useStore((state) => state.token);
@@ -32,7 +33,7 @@ const Login = () => {
 
   useGoogleOneTapLogin({
     onSuccess: (res) => {
-      setToken(res.credential); 
+      setToken(res.credential);
     },
     onError: () => {
       console.log("One Tap Failed");
@@ -40,8 +41,8 @@ const Login = () => {
   });
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="main-login-container">
+      <h1>Login</h1>
       <GoogleLogin
         onSuccess={(response) => {
           setToken(response.credential);

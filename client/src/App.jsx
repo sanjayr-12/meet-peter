@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Chat from "./pages/Chat";
+import Login from "./pages/login/Login";
 import Verify from "./utils/Verify";
+import Chats from "./pages/chats/Chats";
 
 const App = () => {
   return (
@@ -9,7 +9,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route element={<Verify />}>
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<Chats/>} />
         </Route>
       </Routes>
     </div>
