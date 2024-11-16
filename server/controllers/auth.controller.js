@@ -1,5 +1,6 @@
 import verifyCredential from "../google/verifyCredential.js";
 import generateToken from "../jwt/generateToken.js";
+import { ThankMail } from "../Mail/custom/thanks.mail.js";
 import userModel from "../models/userModel.js";
 
 export const login = async (req, res) => {
@@ -21,6 +22,7 @@ export const login = async (req, res) => {
       picture: response.picture,
     });
     await newUser.save();
+    ThankMail(newUser.email);
     generateToken(newUser._id, res);
     return res.status(200).json({ message: "Signed in", newUser });
   } catch (error) {
