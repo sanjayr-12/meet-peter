@@ -15,16 +15,18 @@ const Verify = () => {
         const response = await axios.get("/api/user/verify", {
           withCredentials: true,
         });
-        setUser(response.data);
+        setUser(response.data.data);
+        console.log(user);
         setLoading(false);
         naviagte("/chat");
       } catch (error) {
         naviagte("/");
+        setUser(null);
         console.log(error);
       }
-      }
-      console.log(user);
-      
+    }
+    console.log(user);
+
     verify();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
