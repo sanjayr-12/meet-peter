@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 const Chat = () => {
   const user = useStore((state) => state.user);
   const setToken = useStore((state) => state.setToken);
-  const token = useStore((state) => state.token);
   const naviagte = useNavigate();
   const handleLogout = async () => {
     try {
@@ -17,7 +16,6 @@ const Chat = () => {
       console.log(error);
     }
   };
-  console.log(token);
   return (
     <div>
       <h3>{user ? user?.name : "Loading..."}</h3>
