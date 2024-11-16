@@ -14,7 +14,7 @@ export const verifyMe = async (req, res) => {
     }
     
     const user = await userModel.findById(verify.id);
-    return res.status(200).json({ Userdata: user });
+    return res.status(200).json({ data: user });
   } catch (error) {
     return res.status(500).json({ error: "Internal server error " + error.message });
   }
