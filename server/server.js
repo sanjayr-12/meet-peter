@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
+app.use(cors({ origin: process.env.ORIGIN, credentials: true, exposedHeaders: ["Set-cookie"] }));
 
 app.use("/api/user", authRoutes);
 app.use("/api/chats", chatRoutes);

@@ -1,4 +1,4 @@
-import { GoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
 import useStore from "../../store/zustand";
@@ -31,15 +31,6 @@ const Login = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
-  useGoogleOneTapLogin({
-    onSuccess: (response) => {
-      setToken(response.credential);
-    },
-    onError: () => {
-      console.log("error in loggin in");
-    },
-  });
 
   return (
     <div className="main-login-container">
