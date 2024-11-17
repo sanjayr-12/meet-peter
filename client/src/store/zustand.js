@@ -5,6 +5,7 @@ const useStore = create((set) => ({
   token: null,
   user: null,
   currentMessage: "",
+  api_url:"https://meet-peter-backend.onrender.com",
   loading: false,
   setUser: (newUser) => set({ user: newUser }),
   setToken: (newToken) => set({ token: newToken }),

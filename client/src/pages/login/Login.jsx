@@ -10,10 +10,11 @@ const Login = () => {
   const setToken = useStore((state) => state.setToken);
   const navigate = useNavigate();
   const setUser = useStore((state) => state.setUser);
+  const api_url = useStore((state)=>state.api_url)
   useEffect(() => {
     async function verify() {
       try {
-        const response = await axios.post("/api/user/login", {
+        const response = await axios.post(api_url+"/api/user/login", {
           token,
         });
         setUser(response.data.data);

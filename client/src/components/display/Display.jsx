@@ -9,11 +9,12 @@ const Display = () => {
   const chatEndRef = useRef(null);
   const setLoading = useStore((state) => state.setLoading);
   const loading = useStore((state) => state.loading);
+  const api_url = useStore((state) => state.api_url);
 
   useEffect(() => {
     async function getAll() {
       try {
-        const response = await axios.get("/api/chats/", {
+        const response = await axios.get(api_url + "/api/chats/", {
           withCredentials: true,
         });
         setData(response.data);

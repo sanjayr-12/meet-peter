@@ -8,11 +8,13 @@ const Verify = () => {
   const setUser = useStore((state) => state.setUser);
   const [loading, setLoading] = useState(false);
   const naviagte = useNavigate();
+  const api_url = useStore((state)=>state.api_url)
+  
   useEffect(() => {
     async function verify() {
       try {
         setLoading(true);
-        const response = await axios.get("/api/user/verify", {
+        const response = await axios.get(api_url+"/api/user/verify", {
           withCredentials: true,
         });
         setUser(response.data.data);
