@@ -11,6 +11,7 @@
   border-radius: 10px;
   padding: 5px;
   margin: 10px 20px;
+  font-weight: bold;
 }
 
 .chat-main-container p.user {

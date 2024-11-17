@@ -27,6 +27,6 @@
 
 .form-container input[type="text"] {
   border-radius: 4px;
-  padding: 5px 20px;
+  padding: 5px 5px;
   max-width: 300px;
 }
