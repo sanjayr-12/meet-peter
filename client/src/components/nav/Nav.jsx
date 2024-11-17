@@ -32,10 +32,9 @@ const Nav = () => {
     );
     if (command === "DELETE") {
       try {
-        const response = await axios.delete("/api/chats/delete", {
+        await axios.delete("/api/chats/delete", {
           withCredentials: true,
         });
-        console.log(response);
         setRender();
       } catch (error) {
         console.log(error);

@@ -16,7 +16,6 @@ const Verify = () => {
           withCredentials: true,
         });
         setUser(response.data.data);
-        console.log(user);
         setLoading(false);
         naviagte("/chat");
       } catch (error) {
@@ -25,8 +24,6 @@ const Verify = () => {
         console.log(error);
       }
     }
-    console.log(user);
-
     verify();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

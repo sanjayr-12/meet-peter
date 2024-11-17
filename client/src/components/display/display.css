@@ -20,3 +20,7 @@
 .chat-main-container p.ai {
   align-self: flex-start;
 }
+
+span{
+    margin: 10px 20px;
+}

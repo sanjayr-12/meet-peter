@@ -1,30 +1,52 @@
 import axios from "axios";
 import "./input.css";
 import useStore from "../../store/zustand";
+import { useState } from "react";
 
 export const Input = () => {
   const setRender = useStore((state) => state.setRender);
+  const [input, setInput] = useState("");
+  const [condition, setCondition] = useState(false);
+  const setLoading = useStore((state) => state.setLoading);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formdata = new FormData(e.target);
       const message = formdata.get("input");
-      const response = await axios.post(
+      setInput("");
+      setCondition(true);
+      if (message.trim() === "") {
+        return;
+      }
+      setLoading(true);
+      await axios.post(
         "/api/chats",
         { message },
         { withCredentials: true }
       );
-      setRender();
-      console.log(response.data);
+      setRender()
     } catch (error) {
       console.log(error);
+    } finally {
+      setCondition(false);
     }
   };
   return (
     <div className="input-main-container">
       <form className="form-container" onSubmit={handleSubmit}>
-        <input type="text" name="input" placeholder="send a message..." />
-        <input type="submit" value="send" />
+        <input
+          type="text"
+          name="input"
+          placeholder="send a message..."
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
+        <input
+          type="submit"
+          value={condition ? "..." : "send"}
+          disabled={condition}
+          required
+        />
       </form>
     </div>
   );
