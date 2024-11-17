@@ -7,12 +7,11 @@ const Nav = () => {
   const user = useStore((state) => state.user);
   const setToken = useStore((state) => state.setToken);
   const setRender = useStore((state) => state.setRender);
-  const api_url = useStore((state) => state.api_url);
   const naviagte = useNavigate();
   const handleLogout = async () => {
     try {
       await axios.post(
-        api_url + "/api/user/logout",
+        "/api/user/logout",
         {},
         { withCredentials: true }
       );
@@ -37,7 +36,7 @@ const Nav = () => {
     );
     if (command === "DELETE") {
       try {
-        await axios.delete(api_url + "/api/chats/delete", {
+        await axios.delete("/api/chats/delete", {
           withCredentials: true,
         });
         setRender();

@@ -8,7 +8,6 @@ export const Input = () => {
   const [input, setInput] = useState("");
   const [condition, setCondition] = useState(false);
   const setLoading = useStore((state) => state.setLoading);
-  const api_url = useStore((state) => state.api_url);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,7 +20,7 @@ export const Input = () => {
       }
       setLoading(true);
       await axios.post(
-        api_url + "/api/chats",
+        "/api/chats",
         { message },
         { withCredentials: true }
       );

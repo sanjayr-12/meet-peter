@@ -4,12 +4,12 @@ export const protectedRoute = async (req, res, next) => {
   const token = req.cookies.token;
   try {
     if (!token) {
-      return res.status(404).json({ error: "Not authorized" });
+      return res.status(401).json({ error: "Not authorized" });
     }
     const verify = jwt.verify(token, process.env.JWT_SECRET);
     if (!verify) {
       return res
-        .status(404)
+        .status(401)
         .json({ error: "Unautorized token verification fails" });
     }
     const user = await userModel.findById(verify.id);
