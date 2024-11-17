@@ -1,8 +1,9 @@
 * {
   margin: 0;
   padding: 0;
-  line-height: calc(1em + 0.5rem);
+  line-height: 1.5rem;
   box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
 }
 html {
   scroll-behavior: smooth;

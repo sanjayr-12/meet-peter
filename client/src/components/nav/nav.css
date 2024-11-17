@@ -1,17 +1,24 @@
-.nav-contianer{
-    display: flex;
-    gap: 30px;
+.nav-container {
+  display: flex;
+  gap: 30px;
 }
 
-.nav-contianer button{
-    border-radius: 5px;
-    border: none;
-    padding: 0 5px;
-    cursor: pointer;
+.nav-container button {
+  border-radius: 5px;
+  border: none;
+  padding: 0 5px;
+  cursor: pointer;
 }
 
-.nav-main-contianer{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px  10px;
+.nav-main-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+}
+
+.delete {
+  border-radius: 5px;
+  border: none;
+  padding: 0 5px;
+  cursor: pointer;
 }

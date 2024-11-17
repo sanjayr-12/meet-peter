@@ -1,13 +1,15 @@
-import { Input } from "../../components/Input/Input"
-import Nav from "../../components/nav/Nav"
+import Display from "../../components/display/Display";
+import { Input } from "../../components/Input/Input";
+import Nav from "../../components/nav/Nav";
 
 const Chats = () => {
   return (
-      <div>
-          <Nav />
-          <Input/>
+    <div>
+      <Nav />
+      <Display />
+      <Input />
     </div>
-  )
-}
+  );
+};
 
-export default Chats
+export default Chats;

@@ -1,7 +1,9 @@
 import axios from "axios";
 import "./input.css";
+import useStore from "../../store/zustand";
 
 export const Input = () => {
+  const setRender = useStore((state) => state.setRender);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -12,6 +14,7 @@ export const Input = () => {
         { message },
         { withCredentials: true }
       );
+      setRender();
       console.log(response.data);
     } catch (error) {
       console.log(error);
