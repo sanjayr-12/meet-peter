@@ -32,11 +32,11 @@ const Login = () => {
   }, [token]);
 
   useGoogleOneTapLogin({
-    onSuccess: (res) => {
-      setToken(res.credential);
+    onSuccess: (response) => {
+      setToken(response.credential);
     },
     onError: () => {
-      console.log("One Tap Failed");
+      console.log("error in loggin in");
     },
   });
 
@@ -47,6 +47,10 @@ const Login = () => {
         onSuccess={(response) => {
           setToken(response.credential);
         }}
+        onError={(err) => console.log(err)}
+        useOneTap={true}
+        text={"continue_with"}
+        shape={"circle"}
       />
     </div>
   );

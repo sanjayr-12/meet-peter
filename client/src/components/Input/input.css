@@ -1,25 +1,27 @@
-.input-main-container{
-    height: 90vh;
-    position: relative;
+.input-main-container {
+  height: 88vh;
+  position: relative;
 }
 
-.input-main-container form{
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
+.input-main-container form {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
-.form-container input[type="submit"]{
-    border: none;
-    padding: 3px;
-    border-radius: 4px;
+.form-container input[type="submit"] {
+  border: none;
+  padding: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bolder;
 }
 
-.form-container input[type="text"]{
-    border-radius: 4px;
+.form-container input[type="text"] {
+  border-radius: 4px;
+  padding: 5px 10px;
 }
-
