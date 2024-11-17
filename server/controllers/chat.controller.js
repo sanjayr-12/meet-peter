@@ -28,3 +28,32 @@ export const newMessage = async (req, res) => {
     res.status(500).json({ error: "Internal server error " + error.message });
   }
 };
+
+export const getAll = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const chatData = await chatModel.find({ userId: id });
+    return res.status(200).json(chatData);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error " + error.message });
+  }
+};
+
+export const deleteChats = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const response = await chatModel.deleteMany({ userId: id });
+    if (!response) {
+      return res
+        .status(400)
+        .json({ error: "message something went wrong while deleting" });
+    }
+    return res.status(200).json({ message: "Messages deleted successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error " + error.message });
+  }
+};
