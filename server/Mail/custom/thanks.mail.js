@@ -5,8 +5,8 @@ configDotenv();
 
 export async function ThankMail(mail) {
   try {
-      const content = await model.generateContent(process.env.THANK_PROMPT);
-      
+    const content = await model.generateContent(process.env.THANK_PROMPT);
+
     transporter.sendMail({
       from: {
         name: "Peter Griffen",
