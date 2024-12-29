@@ -10,7 +10,6 @@ import { fileURLToPath } from "url";
 
 configDotenv();
 
-// Define __dirname for ES6
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
