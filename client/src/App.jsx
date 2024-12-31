@@ -5,7 +5,7 @@ import Chats from "./pages/chats/Chats";
 
 const App = () => {
   return (
-    <div className="bg-base-200 min-h-screen mr-auto ml-auto">
+    <div className="bg-base-200 min-h-screen max-w-[500px] mr-auto ml-auto">
       <Routes>
         <Route path="/" element={<Login />} />
         <Route element={<Verify />}>

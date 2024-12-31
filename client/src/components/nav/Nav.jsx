@@ -48,8 +48,7 @@ const Nav = () => {
     }
   };
   return (
-    <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 flex fixed max-w-[500px]">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">Meet Peter</a>
         </div>
@@ -67,7 +66,6 @@ const Nav = () => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 
