@@ -8,17 +8,14 @@ const Display = () => {
   const [data, setData] = useState([]);
   const chatEndRef = useRef(null);
   const setLoading = useStore((state) => state.setLoading);
-    const loading = useStore((state) => state.loading);
-    
+  const loading = useStore((state) => state.loading);
+
   useEffect(() => {
     async function getAll() {
       try {
-        const response = await axios.get(
-          "/api/chats/",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get("/api/chats/", {
+          withCredentials: true,
+        });
         setData(response.data);
       } catch (error) {
         console.log(error);
@@ -37,13 +34,17 @@ const Display = () => {
   }, [data, loading]);
 
   return (
-    <div className="display-main-container">
+    <div className="pt-20 pb-20">
       {data.length > 0 &&
         data.map((chat, index) => {
           return (
             <div key={chat._id} className="chat-main-container">
-              <p className="user">{chat.messages.user}</p>
-              <p className="ai">{chat.messages.ai}</p>
+              <div className="chat chat-end">
+                <div className="chat-bubble">{chat.messages.user}</div>
+              </div>
+              <div className="chat chat-start">
+                <div className="chat-bubble">{chat.messages.ai}</div>
+              </div>
               {index === data.length - 1 && loading && (
                 <span>Peter is Typing...</span>
               )}

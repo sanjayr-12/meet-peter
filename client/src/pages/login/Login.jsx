@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
 
 const Login = () => {
   const token = useStore((state) => state.token);
@@ -13,12 +12,9 @@ const Login = () => {
   useEffect(() => {
     async function verify() {
       try {
-        const response = await axios.post(
-          "/api/user/login",
-          {
-            token,
-          }
-        );
+        const response = await axios.post("/api/user/login", {
+          token,
+        });
         setUser(response.data.data);
         navigate("/chat");
       } catch (error) {
@@ -35,17 +31,28 @@ const Login = () => {
   }, [token]);
 
   return (
-    <div className="main-login-container">
-      <h1>Login</h1>
-      <GoogleLogin
-        onSuccess={(response) => {
-          setToken(response.credential);
-        }}
-        onError={(err) => console.log(err)}
-        useOneTap={true}
-        text={"continue_with"}
-        shape={"circle"}
-      />
+    <div className="hero bg-base-200 min-h-screen">
+      <div className="hero-content flex-col items-center justify-center">
+        <img
+          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+          className="max-w-sm rounded-lg shadow-2xl"
+        />
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-5xl font-bold">Login</h1>
+          <p className="py-6 text-center">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+            excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+          </p>
+          <GoogleLogin
+            onSuccess={(response) => {
+              setToken(response.credential);
+            }}
+            onError={(err) => console.log(err)}
+            text={"continue_with"}
+            shape={"circle"}
+          />
+        </div>
+      </div>
     </div>
   );
 };
