@@ -2,7 +2,6 @@ import axios from "axios";
 import useStore from "../../store/zustand";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import "./nav.css";
 import { useState } from "react";
 const Nav = () => {
   const user = useStore((state) => state.user);
@@ -49,16 +48,26 @@ const Nav = () => {
     }
   };
   return (
-    <div className="nav-main-container">
-      <h3>Meet Peter</h3>
-      <button onClick={handleDelete} className="delete" disabled={deleteLoading}>
-        {deleteLoading?"deleting...":"delete"}
-      </button>
-      <div className="nav-container">
-        <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3>
-        <button onClick={handleLogout}>Logout</button>
+    <>
+      <div className="navbar bg-base-100">
+        <div className="flex-1">
+          <a className="btn btn-ghost text-xl">Meet Peter</a>
+        </div>
+        <div className="menu menu-horizontal px-1 gap-3">
+          <button
+            onClick={handleDelete}
+            className="delete"
+            disabled={deleteLoading}
+          >
+            {deleteLoading ? "Deleting..." : "Delete"}
+          </button>
+          <div className="flex flex-row gap-3">
+            <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
