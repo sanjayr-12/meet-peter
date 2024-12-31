@@ -48,14 +48,13 @@ const Nav = () => {
     }
   };
   return (
-      <div className="navbar bg-base-100 flex fixed max-w-[500px]">
+      <div className="navbar bg-base-100 flex fixed max-w-[500px] z-50">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">Meet Peter</a>
         </div>
         <div className="menu menu-horizontal px-1 gap-3">
           <button
             onClick={handleDelete}
-            className="delete"
             disabled={deleteLoading}
           >
             {deleteLoading ? "Deleting..." : "Delete"}

@@ -18,11 +18,7 @@ export const Input = () => {
         return;
       }
       setLoading(true);
-      await axios.post(
-        "/api/chats",
-        { message },
-        { withCredentials: true }
-      );
+      await axios.post("/api/chats", { message }, { withCredentials: true });
       setRender();
     } catch (error) {
       console.log(error);
@@ -32,22 +28,25 @@ export const Input = () => {
   };
   return (
     <div className="fixed bottom-0 right-0 flex left-0 justify-center p-3 bg-base-100">
-      <form onSubmit={handleSubmit} className="flex justify-center items-center gap-5">
-          <input
-            type="text"
-            name="input"
-            placeholder="send a message..."
-            onChange={(e) => setInput(e.target.value)}
-            value={input}
-            className="input input-bordered input-primary w-full max-w-xs"
-          />
-          <input
-            type="submit"
-            value={condition ? "..." : "send"}
-            disabled={condition}
-            required
-          />
-       
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-center items-center gap-5"
+      >
+        <input
+          type="text"
+          name="input"
+          placeholder="send a message..."
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+          className="input input-bordered input-primary w-full max-w-xs"
+        />
+        <input
+          type="submit"
+          value={condition ? "..." : "send"}
+          disabled={condition}
+          className="cursor-pointer"
+          required
+        />
       </form>
     </div>
   );
