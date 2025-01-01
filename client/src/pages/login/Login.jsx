@@ -34,14 +34,17 @@ const Login = () => {
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col items-center justify-center">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          className="max-w-sm rounded-lg shadow-2xl"
+          src="https://i.ibb.co/xMXzvBg/peter.jpg"
+          className="max-w-sm rounded-lg shadow-2xl max-h-72"
         />
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-5xl font-bold">Login</h1>
+          <h2 className="text-5xl font-bold">Hey There, You!</h2>
           <p className="py-6 text-center">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+            Oh, look who showed up! It’s you! Alright, alright, here’s the
+            deal—this is your chance to chat with me, Peter Griffin! You got
+            jokes? Questions? Wanna just shoot the breeze? I’m here for it, pal!
+            So stop stalling, click that login button below, and let’s yap it
+            up. C’mon, don’t leave me hanging!
           </p>
           <GoogleLogin
             onSuccess={(response) => {
