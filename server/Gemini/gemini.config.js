@@ -30,6 +30,7 @@ const safetySettings = [
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-001",
   safetySettings: safetySettings,
+  // systemInstruction:process.env.UTIL_TEXT
 });
 
 export default model;
