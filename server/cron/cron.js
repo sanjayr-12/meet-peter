@@ -10,7 +10,7 @@ export const reStart = () => {
     "*/14 * * * *",
     async () => {
       const response = await axios.get(`${url}/api/self`);
-      console.log(response.data.message);
+      console.log(response.data);
     },
     {
       timezone: "Asia/Kolkata",
