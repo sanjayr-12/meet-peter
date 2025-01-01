@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import chatRoutes from "./routes/chat.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import selfRequest from "./routes/common/self.routes.js"
 
 configDotenv();
 
@@ -36,6 +37,7 @@ app.use(
 
 app.use("/api/user", authRoutes);
 app.use("/api/chats", chatRoutes);
+app.use("/self",selfRequest)
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
