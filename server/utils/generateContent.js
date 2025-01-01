@@ -12,12 +12,12 @@ export async function GenerateContent(prompt, userId) {
 
    const systemPrompt = {
      role: "model",
-     parts: [{ text: process.env.UTIL_TEXT }],
+     parts: [{ text: process.env.SYSTEM }],
    };
 
    const historyPrompt = {
      role: "model",
-     parts: [{ text: process.env.UTIL_TEXT3 + " " + formattedHistory }],
+     parts: [{ text: process.env.HISTORY + " " + formattedHistory }],
    };
 
    const userPrompt = {
