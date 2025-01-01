@@ -9,7 +9,7 @@ export const reStart = () => {
   cron.schedule(
     "*/14 * * * *",
     async () => {
-      const response = await axios.get(`${url}/self`);
+      const response = await axios.get(`${url}/api/self`);
       console.log(response.data.message);
     },
     {

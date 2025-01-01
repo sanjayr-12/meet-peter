@@ -37,7 +37,7 @@ app.use(
 
 app.use("/api/user", authRoutes);
 app.use("/api/chats", chatRoutes);
-app.use("/self",selfRequest)
+app.use("/api/self",selfRequest)
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
