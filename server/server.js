@@ -8,6 +8,7 @@ import chatRoutes from "./routes/chat.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import selfRequest from "./routes/common/self.routes.js"
+import { reStart } from "./cron/cron.js";
 
 configDotenv();
 
@@ -45,5 +46,6 @@ app.get("*", (req, res) => {
 
 app.listen(3000, () => {
   console.log("server is started");
+  reStart()
   connectDB();
 });
