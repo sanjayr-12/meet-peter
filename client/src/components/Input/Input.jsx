@@ -27,7 +27,7 @@ export const Input = () => {
     }
   };
   return (
-    <div className="fixed bottom-0 right-0 flex left-0 justify-center p-3 bg-base-100">
+    <div className="bottom-0 right-0 flex left-0 justify-center p-3 navbar bg-base-100 fixed max-w-[500px] z-50 mr-auto ml-auto">
       <form
         onSubmit={handleSubmit}
         className="flex justify-center items-center gap-5"

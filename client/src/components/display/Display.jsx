@@ -35,6 +35,9 @@ const Display = () => {
 
   return (
     <div className="pt-20 pb-20">
+      <div className="chat chat-start">
+        <div className="chat-bubble">Hey buddy...</div>
+      </div>
       {data.length > 0 &&
         data.map((chat, index) => {
           return (
