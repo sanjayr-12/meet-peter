@@ -48,23 +48,20 @@ const Nav = () => {
     }
   };
   return (
-      <div className="navbar bg-base-100 flex fixed max-w-[500px] z-50">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Meet Peter</a>
-        </div>
-        <div className="menu menu-horizontal px-1 gap-3">
-          <button
-            onClick={handleDelete}
-            disabled={deleteLoading}
-          >
-            {deleteLoading ? "Deleting..." : "Delete"}
-          </button>
-          <div className="flex flex-row gap-3">
-            <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
+    <div className="navbar bg-base-100 flex fixed max-w-[500px] z-50">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">Meet Peter</a>
+      </div>
+      <div className="menu menu-horizontal px-1 gap-3">
+        <button onClick={handleDelete} disabled={deleteLoading}>
+          {deleteLoading ? "Deleting..." : "Delete"}
+        </button>
+        <div className="flex flex-row gap-3">
+          <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
+    </div>
   );
 };
 
