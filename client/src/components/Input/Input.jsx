@@ -1,6 +1,7 @@
 import axios from "axios";
 import useStore from "../../store/zustand";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Input = () => {
   const setRender = useStore((state) => state.setRender);
@@ -21,6 +22,7 @@ export const Input = () => {
       await axios.post("/api/chats", { message }, { withCredentials: true });
       setRender();
     } catch (error) {
+      toast.error(error.response.data.error)
       console.log(error);
     } finally {
       setCondition(false);
@@ -28,6 +30,7 @@ export const Input = () => {
   };
   return (
     <div className="bottom-0 right-0 flex left-0 justify-center p-3 navbar bg-base-100 fixed max-w-[500px] z-50 mr-auto ml-auto">
+      <Toaster/>
       <form
         onSubmit={handleSubmit}
         className="flex justify-center items-center gap-5"

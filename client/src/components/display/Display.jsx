@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import "./display.css";
 import axios from "axios";
 import useStore from "../../store/zustand";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Display = () => {
   const render = useStore((state) => state.render);
@@ -18,6 +20,7 @@ const Display = () => {
         });
         setData(response.data);
       } catch (error) {
+        toast.error(error.response.data.error);
         console.log(error);
       } finally {
         setLoading(false);
@@ -35,6 +38,7 @@ const Display = () => {
 
   return (
     <div className="pt-20 pb-20">
+      <Toaster />
       <div className="chat chat-start">
         <div className="chat-bubble">Hey buddy...</div>
       </div>
