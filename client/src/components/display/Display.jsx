@@ -4,6 +4,7 @@ import axios from "axios";
 import useStore from "../../store/zustand";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import ChatProfile from "./ChatProfile";
 
 const Display = () => {
   const render = useStore((state) => state.render);
@@ -11,6 +12,8 @@ const Display = () => {
   const chatEndRef = useRef(null);
   const setLoading = useStore((state) => state.setLoading);
   const loading = useStore((state) => state.loading);
+  const url = "https://i.ibb.co/0YQMmyB/icon-1.png";
+  const user = useStore((state) => state.user);
 
   useEffect(() => {
     async function getAll() {
@@ -40,6 +43,7 @@ const Display = () => {
     <div className="pt-20 pb-20">
       <Toaster />
       <div className="chat chat-start">
+        <ChatProfile img={url} />
         <div className="chat-bubble">Hey buddy...</div>
       </div>
       {data.length > 0 &&
@@ -47,9 +51,11 @@ const Display = () => {
           return (
             <div key={chat._id} className="chat-main-container">
               <div className="chat chat-end">
+                {console.log(user.picture)}
                 <div className="chat-bubble">{chat.messages.user}</div>
               </div>
               <div className="chat chat-start">
+                <ChatProfile img={url} />
                 <div className="chat-bubble">{chat.messages.ai}</div>
               </div>
               {index === data.length - 1 && loading && (
@@ -58,6 +64,7 @@ const Display = () => {
             </div>
           );
         })}
+
       <div ref={chatEndRef} />
     </div>
   );
