@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import "./display.css";
 import axios from "axios";
 import useStore from "../../store/zustand";
 import { Toaster } from "react-hot-toast";
