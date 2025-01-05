@@ -1,18 +1,22 @@
 import { useEffect, useState, useRef } from "react";
+<<<<<<< HEAD:client/src/components/display/Display.jsx
 import axios from "axios";
+=======
+import axios, { AxiosError } from "axios";
+>>>>>>> typescript-migration:client/src/components/display/Display.tsx
 import useStore from "../../store/zustand";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import ChatProfile from "./ChatProfile";
+import { Chat } from "../../store/types";
 
 const Display = () => {
   const render = useStore((state) => state.render);
-  const [data, setData] = useState([]);
-  const chatEndRef = useRef(null);
+  const [data, setData] = useState<Chat[]>([]);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
   const setLoading = useStore((state) => state.setLoading);
   const loading = useStore((state) => state.loading);
   const url = "https://i.ibb.co/0YQMmyB/icon-1.png";
-  const user = useStore((state) => state.user);
 
   useEffect(() => {
     async function getAll() {
@@ -22,7 +26,9 @@ const Display = () => {
         });
         setData(response.data);
       } catch (error) {
-        toast.error(error.response.data.error);
+        if (error instanceof AxiosError) {
+          toast.error(error?.response?.data.error);
+        }
         console.log(error);
       } finally {
         setLoading(false);
@@ -50,7 +56,6 @@ const Display = () => {
           return (
             <div key={chat._id} className="chat-main-container">
               <div className="chat chat-end">
-                {console.log(user.picture)}
                 <div className="chat-bubble">{chat.messages.user}</div>
               </div>
               <div className="chat chat-start">

@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
+import { State } from "../../store/types";
 
 const Login = () => {
-  const token = useStore((state) => state.token);
-  const setToken = useStore((state) => state.setToken);
+  const token = useStore((state: State) => state.token);
+  const setToken = useStore((state: State) => state.setToken);
   const navigate = useNavigate();
   const setUser = useStore((state) => state.setUser);
   useEffect(() => {
@@ -36,6 +37,7 @@ const Login = () => {
         <img
           src="https://i.ibb.co/xMXzvBg/peter.jpg"
           className="max-w-sm rounded-lg shadow-2xl max-h-72"
+          alt="peter image"
         />
         <div className="flex flex-col justify-center items-center">
           <h2 className="text-5xl font-bold">Hey There, You!</h2>
@@ -48,9 +50,8 @@ const Login = () => {
           </p>
           <GoogleLogin
             onSuccess={(response) => {
-              setToken(response.credential);
+              setToken(response?.credential ?? null);
             }}
-            onError={(err) => console.log(err)}
             text={"continue_with"}
             shape={"circle"}
           />

@@ -1,5 +1,8 @@
-// eslint-disable-next-line react/prop-types
-const ChatProfile = ({ img }) => {
+type ChatProfileProps = {
+  img: string;
+};
+
+const ChatProfile: React.FC<ChatProfileProps> = ({ img }) => {
   const handleError = () => {
     console.error("Image failed to load:", img);
   };

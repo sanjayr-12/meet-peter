@@ -19,7 +19,7 @@ const Nav = () => {
       console.log(error);
     }
   };
-  function toSentanceCase(str) {
+  function toSentanceCase(str:string) {
     if (str) {
       return str.replace(
         /\w\S*/g,
