@@ -1,9 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-<<<<<<< HEAD:client/src/components/display/Display.jsx
-import axios from "axios";
-=======
 import axios, { AxiosError } from "axios";
->>>>>>> typescript-migration:client/src/components/display/Display.tsx
 import useStore from "../../store/zustand";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
