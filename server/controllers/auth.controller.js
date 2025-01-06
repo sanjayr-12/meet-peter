@@ -1,7 +1,10 @@
 import verifyCredential from "../google/verifyCredential.js";
 import generateToken from "../jwt/generateToken.js";
+import { MagicMail } from "../Mail/custom/magic.mail.js";
 import { ThankMail } from "../Mail/custom/thanks.mail.js";
+import MagicModel from "../models/MagicModel.js";
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
   try {
@@ -36,5 +39,41 @@ export const logout = async (req, res) => {
     res.status(200).json({ message: "logged out successfully" });
   } catch (error) {
     res.status(500).json({ error: "internal server error" });
+  }
+};
+
+export const magicLink = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ error: "name or email is required" });
+    }
+    const check = await userModel.findOne({ email });
+
+    if (check) {
+      const id = check._id;
+      const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: "5m",
+      });
+      await MagicMail(token, check.email);
+      return res.status(200).json({ message: "Check your mail" });
+    }
+
+    const newUser = new MagicModel({
+      name,
+      email,
+    });
+    await newUser.save();
+    const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+      expiresIn: "5m",
+    });
+
+    await MagicMail(token, email);
+
+    return res.status(200).json({ message: "Check your mail" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error " + error.message });
   }
 };
