@@ -4,6 +4,7 @@ import axios from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../store/types";
+import Goto from "../../components/goto/Goto";
 
 const Login = () => {
   const token = useStore((state: State) => state.token);
@@ -48,6 +49,8 @@ const Login = () => {
             So stop stalling, click that login button below, and let’s yap it
             up. C’mon, don’t leave me hanging!
           </p>
+          <Goto />
+          <br />
           <GoogleLogin
             onSuccess={(response) => {
               setToken(response?.credential ?? null);
