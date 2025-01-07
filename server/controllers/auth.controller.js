@@ -88,9 +88,16 @@ export const verifyMagic = async (req, res) => {
     }
 
     const verify = jwt.verify(token, process.env.JWT_SECRET);
-    const check = await BlackListModel.findOne({ token });
 
-    if (check) {
+    if (!verify) {
+      return res.status(400).json({ error: "Unauthorized" });
+    }
+
+    const checkUser = MagicModel.findById(verify.id);
+
+    const blackList = await BlackListModel.findOne({ token });
+
+    if (blackList) {
       return res.status(400).json({ error: "Token expired" });
     }
 
@@ -99,10 +106,6 @@ export const verifyMagic = async (req, res) => {
     });
 
     newToken.save();
-
-    if (!verify) {
-      return res.status(401).json({ error: "Token is invalid" });
-    }
 
     
 
