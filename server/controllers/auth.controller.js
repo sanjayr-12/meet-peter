@@ -2,6 +2,7 @@ import verifyCredential from "../google/verifyCredential.js";
 import generateToken from "../jwt/generateToken.js";
 import { MagicMail } from "../Mail/custom/magic.mail.js";
 import { ThankMail } from "../Mail/custom/thanks.mail.js";
+import BlackListModel from "../models/BlacklistModel.js";
 import MagicModel from "../models/MagicModel.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
@@ -71,6 +72,40 @@ export const magicLink = async (req, res) => {
     await MagicMail(token, email);
 
     return res.status(200).json({ message: "Check your mail" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error " + error.message });
+  }
+};
+
+export const verifyMagic = async (req, res) => {
+  try {
+    const token = req.query.auth;
+
+    if (!token) {
+      return res.status(400).json({ error: "No auth token" });
+    }
+
+    const verify = jwt.verify(token, process.env.JWT_SECRET);
+    const check = await BlackListModel.findOne({ token });
+
+    if (check) {
+      return res.status(400).json({ error: "Token expired" });
+    }
+
+    const newToken = new BlackListModel({
+      token,
+    });
+
+    newToken.save();
+
+    if (!verify) {
+      return res.status(401).json({ error: "Token is invalid" });
+    }
+
+    
+
   } catch (error) {
     return res
       .status(500)
