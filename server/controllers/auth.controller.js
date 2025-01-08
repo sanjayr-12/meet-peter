@@ -49,16 +49,6 @@ export const magicLink = async (req, res) => {
     if (!name || !email) {
       return res.status(400).json({ error: "name or email is required" });
     }
-    const check = await userModel.findOne({ email });
-
-    if (check) {
-      const id = check._id;
-      const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: "5m",
-      });
-      await MagicMail(token, check.email);
-      return res.status(200).json({ message: "Check your mail" });
-    }
 
     const newUser = new MagicModel({
       name,
@@ -93,22 +83,34 @@ export const verifyMagic = async (req, res) => {
       return res.status(400).json({ error: "Unauthorized" });
     }
 
-    const checkUser = MagicModel.findById(verify.id);
+    const checkMagic = MagicModel.findById(verify.id);
 
-    const blackList = await BlackListModel.findOne({ token });
-
-    if (blackList) {
-      return res.status(400).json({ error: "Token expired" });
+    if (!checkMagic) {
+      return res.status(400).json({ error: "Email is not present" });
     }
-
+    const blackList = await BlackListModel.findOne({ token });
+    if (blackList) {
+      return res.status(400).json({ error: "Link expired" });
+    }
     const newToken = new BlackListModel({
       token,
     });
 
-    newToken.save();
-
-    
-
+    await newToken.save();
+    const checkUser = userModel.findOne({ email: checkMagic.email });
+    if (checkUser) {
+      generateToken(checkUser.id, res);
+      return res.status(200).json({ message: "Signed in", checkUser });
+    }
+    const name = checkMagic.email;
+    const username = name.split("@")[0];
+    const newUser = new userModel({
+      name: username,
+      email: checkMagic.email,
+      picture: "",
+    });
+    await newUser.save();
+    return res.status(200).json({ message: "Signed in", newUser });
   } catch (error) {
     return res
       .status(500)
