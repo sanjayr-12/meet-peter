@@ -49,6 +49,20 @@ export const magicLink = async (req, res) => {
     if (!email) {
       return res.status(400).json({ error: "email is required" });
     }
+
+    const checkUser = await MagicModel.findOne({ email });
+
+    if (checkUser) {
+      const id = checkUser._id;
+      const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: "5m",
+      });
+
+      await MagicMail(token, email);
+
+      return res.status(200).json({ message: "Check your mail" });
+    }
+
     const newUser = new MagicModel({
       email,
     });
@@ -94,7 +108,6 @@ export const verifyMagic = async (req, res) => {
     const newToken = new BlackListModel({
       token,
     });
-
     await newToken.save();
     const checkUser = await userModel.findOne({ email: checkMagic.email });
     if (checkUser) {
@@ -110,7 +123,6 @@ export const verifyMagic = async (req, res) => {
     });
     await newUser.save();
     generateToken(newUser._id, res);
-    // return res.status(200).json({ message: "Signed in", newUser });
     res.redirect("/chat");
   } catch (error) {
     return res
