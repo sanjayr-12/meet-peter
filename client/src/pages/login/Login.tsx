@@ -32,6 +32,10 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  const handleMagic = () => {
+    navigate("/magic");
+  };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col items-center justify-center">
@@ -58,6 +62,10 @@ const Login = () => {
             text={"continue_with"}
             shape={"circle"}
           />
+          <br />
+          <button className="btn btn-ghost" onClick={handleMagic}>
+            Continue with Email
+          </button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import express from "express";
-import { login, logout, magicLink } from "../controllers/auth.controller.js";
+import { login, logout, magicLink, verifyMagic } from "../controllers/auth.controller.js";
 import verifyMe from "../utils/verify.js";
 import { protectedRoute } from "../utils/protectedRoutes.js";
 

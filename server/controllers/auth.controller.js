@@ -49,11 +49,11 @@ export const magicLink = async (req, res) => {
     if (!email) {
       return res.status(400).json({ error: "email is required" });
     }
-
     const newUser = new MagicModel({
       email,
     });
     await newUser.save();
+    const id = newUser._id;
     const token = jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: "5m",
     });
@@ -82,7 +82,7 @@ export const verifyMagic = async (req, res) => {
       return res.status(400).json({ error: "Unauthorized" });
     }
 
-    const checkMagic = MagicModel.findById(verify.id);
+    const checkMagic = await MagicModel.findById(verify.id);
 
     if (!checkMagic) {
       return res.status(400).json({ error: "Email is not present" });
@@ -96,10 +96,10 @@ export const verifyMagic = async (req, res) => {
     });
 
     await newToken.save();
-    const checkUser = userModel.findOne({ email: checkMagic.email });
+    const checkUser = await userModel.findOne({ email: checkMagic.email });
     if (checkUser) {
-      generateToken(checkUser.id, res);
-      return res.status(200).json({ message: "Signed in", checkUser });
+      generateToken(checkUser._id, res);
+      return res.redirect("/chat");
     }
     const name = checkMagic.email;
     const username = name.split("@")[0];
@@ -109,7 +109,9 @@ export const verifyMagic = async (req, res) => {
       picture: "",
     });
     await newUser.save();
-    return res.status(200).json({ message: "Signed in", newUser });
+    generateToken(newUser._id, res);
+    // return res.status(200).json({ message: "Signed in", newUser });
+    res.redirect("/chat");
   } catch (error) {
     return res
       .status(500)
