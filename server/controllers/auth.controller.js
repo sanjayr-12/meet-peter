@@ -45,13 +45,12 @@ export const logout = async (req, res) => {
 
 export const magicLink = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    if (!name || !email) {
-      return res.status(400).json({ error: "name or email is required" });
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: "email is required" });
     }
 
     const newUser = new MagicModel({
-      name,
       email,
     });
     await newUser.save();
