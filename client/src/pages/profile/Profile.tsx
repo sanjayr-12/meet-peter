@@ -40,10 +40,9 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       setLoad(true);
-      const response = await axios.delete("/api/chats/delete", {
+      await axios.delete("/api/chats/deleteAccount", {
         withCredentials: true,
       });
-      toast.success(response.data.message);
       navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -51,8 +50,7 @@ const Profile = () => {
       } else {
         toast.error("Something went wrong bro...");
       }
-    } finally {
-      setLoad(false);
+      setLoad(true);
     }
   };
 
@@ -98,8 +96,12 @@ const Profile = () => {
             <form method="dialog">
               <button className="btn">Cancel</button>
             </form>
-            <button className="btn btn-error" onClick={handleDelete} disabled={load}>
-              {load?"Deleting...":"Delete"}
+            <button
+              className="btn btn-error"
+              onClick={handleDelete}
+              disabled={load}
+            >
+              {load ? "Deleting..." : "Delete"}
             </button>
           </div>
         </div>

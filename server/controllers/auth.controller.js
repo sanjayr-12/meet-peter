@@ -123,6 +123,7 @@ export const verifyMagic = async (req, res) => {
     });
     await newUser.save();
     generateToken(newUser._id, res);
+    ThankMail(newUser.email);
     res.redirect("/chat");
   } catch (error) {
     return res
