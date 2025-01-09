@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import Verify from "./utils/Verify";
 import Chats from "./pages/chats/Chats";
 import MagicLink from "./pages/magic/MagicLink"
+import Profile from "./pages/profile/Profile";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route element={<Verify />}>
           <Route path="/chat" element={<Chats />} />
+          <Route path="/profile" element={ <Profile/>} />
         </Route>
         <Route path="/magic" element={<MagicLink />} />
       </Routes>
