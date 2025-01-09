@@ -57,3 +57,22 @@ export const deleteChats = async (req, res) => {
       .json({ error: "Internal server error " + error.message });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const { url, name } = req.body;
+    const updateUser = await userModel.findByIdAndUpdate(id, {
+      picture: url,
+      name,
+    });
+    if (!updateUser) {
+      return res.status(400).json({ error: "Error in updating" });
+    }
+    return res.status(200).json({ message: "Profile Updated" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error " + error.message });
+  }
+};
