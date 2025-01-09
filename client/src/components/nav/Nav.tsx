@@ -19,14 +19,14 @@ const Nav = () => {
       console.log(error);
     }
   };
-  function toSentanceCase(str: string) {
-    if (str) {
-      return str.replace(
-        /\w\S*/g,
-        (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-      );
-    }
-  }
+  // function toSentanceCase(str: string) {
+  //   if (str) {
+  //     return str.replace(
+  //       /\w\S*/g,
+  //       (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  //     );
+  //   }
+  // }
   const handleDelete = async () => {
     const command = prompt(
       "Type DELETE, if you want to delete your chat history, with no spaces"
