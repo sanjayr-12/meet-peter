@@ -47,6 +47,11 @@ const Nav = () => {
       alert("Wrong Command, make sure to have no spaces");
     }
   };
+
+  const handleProfile = () => {
+    naviagte("/profile");
+  };
+
   return (
     <div className="navbar bg-base-100 flex fixed max-w-[500px] z-50">
       <div className="flex-1">
@@ -58,7 +63,12 @@ const Nav = () => {
         </button>
         <div className="flex flex-row gap-3">
           {/* <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3> */}
-          <img src={user?.picture} alt="profile" className="w-8 rounded-full" />
+          <img
+            src={user?.picture}
+            alt="profile"
+            className="w-8 rounded-full cursor-pointer"
+            onClick={handleProfile}
+          />
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>

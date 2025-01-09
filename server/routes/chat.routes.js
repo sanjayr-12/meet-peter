@@ -4,6 +4,7 @@ import {
   newMessage,
   getAll,
   deleteChats,
+  updateProfile
 } from "../controllers/chat.controller.js";
 
 const router = express.Router();
@@ -11,5 +12,6 @@ const router = express.Router();
 router.post("/", protectedRoute, newMessage);
 router.get("/", protectedRoute, getAll);
 router.delete("/delete", protectedRoute, deleteChats);
+router.patch("/update",protectedRoute, updateProfile)
 
 export default router;
