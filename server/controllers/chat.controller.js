@@ -62,6 +62,13 @@ export const updateProfile = async (req, res) => {
   try {
     const id = req.user.id;
     const { url, name } = req.body;
+    const urlReg = /\.(jpeg|jpg|gif|png|webp)$/i;
+    const checkUrl = urlReg.test(url);
+
+    if (!checkUrl) {
+      return res.status(400).json({ error: "Image url is invalid" });
+    }
+
     const updateUser = await userModel.findByIdAndUpdate(id, {
       picture: url,
       name,
