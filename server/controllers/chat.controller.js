@@ -83,3 +83,20 @@ export const updateProfile = async (req, res) => {
       .json({ error: "Internal server error " + error.message });
   }
 };
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const id = req.user.id;
+    await chatModel.deleteMany({ userId: id });
+    const deleteUser = await userModel.findByIdAndDelete(id);
+    if (!deleteUser) {
+      return res.status(400).json({ error: "Error in deleting account" });
+    }
+    res.cookie("token", "", { maxAge: 0 });
+    res.status(200).json({ message: "Account deleted" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Internal error message " + error.message });
+  }
+};
