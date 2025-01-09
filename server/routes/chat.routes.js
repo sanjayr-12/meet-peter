@@ -14,6 +14,6 @@ router.post("/", protectedRoute, newMessage);
 router.get("/", protectedRoute, getAll);
 router.delete("/delete", protectedRoute, deleteChats);
 router.patch("/update", protectedRoute, updateProfile)
-router.delete("/delete",deleteAccount)
+router.delete("/delete",protectedRoute, deleteAccount)
 
 export default router;
