@@ -19,7 +19,7 @@ const Nav = () => {
       console.log(error);
     }
   };
-  function toSentanceCase(str:string) {
+  function toSentanceCase(str: string) {
     if (str) {
       return str.replace(
         /\w\S*/g,
@@ -57,7 +57,8 @@ const Nav = () => {
           {deleteLoading ? "Deleting..." : "Delete"}
         </button>
         <div className="flex flex-row gap-3">
-          <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3>
+          {/* <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3> */}
+          <img src={user?.picture} alt="profile" className="w-8 rounded-full" />
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
