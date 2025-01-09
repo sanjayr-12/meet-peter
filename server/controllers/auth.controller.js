@@ -119,7 +119,7 @@ export const verifyMagic = async (req, res) => {
     const newUser = new userModel({
       name: username,
       email: checkMagic.email,
-      picture: "",
+      picture: "https://i.ibb.co/Hp9dw6N/chicken.png",
     });
     await newUser.save();
     generateToken(newUser._id, res);
