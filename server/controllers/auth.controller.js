@@ -95,7 +95,6 @@ export const verifyMagic = async (req, res) => {
     if (!verify) {
       return res.status(400).json({ error: "Unauthorized" });
     }
-
     const checkMagic = await MagicModel.findById(verify.id);
 
     if (!checkMagic) {
