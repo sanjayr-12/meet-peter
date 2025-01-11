@@ -22,10 +22,10 @@ export const Input = () => {
       await axios.post("/api/chats", { message }, { withCredentials: true });
       setRender();
     } catch (error) {
-        if (error instanceof AxiosError) {
-            toast.error(error?.response?.data.error);
-            console.log(error);
-        }
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data.error);
+        console.log(error);
+      }
     } finally {
       setCondition(false);
     }

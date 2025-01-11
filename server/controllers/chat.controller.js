@@ -1,5 +1,6 @@
 import chatModel from "../models/chatModel.js";
 import userModel from "../models/userModel.js";
+import { checkImage } from "../utils/checkImage.js";
 import { GenerateContent } from "../utils/generateContent.js";
 
 export const newMessage = async (req, res) => {
@@ -62,8 +63,7 @@ export const updateProfile = async (req, res) => {
   try {
     const id = req.user.id;
     const { url, name } = req.body;
-    const urlReg = /\.(jpeg|jpg|gif|png|webp)$/i;
-    const checkUrl = urlReg.test(url);
+    const checkUrl = await checkImage(url);
 
     if (!checkUrl) {
       return res.status(400).json({ error: "Image url is invalid" });

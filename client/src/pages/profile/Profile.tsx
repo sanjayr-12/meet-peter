@@ -13,8 +13,16 @@ const Profile = () => {
     e.preventDefault();
     try {
       const formData = new FormData(e.currentTarget);
-      const url = formData.get("url")?.toString().trim() ?? user?.picture;
-      const name = formData.get("name")?.toString().trim() ?? user?.name;
+      let url = formData.get("url");
+      let name = formData.get("name");
+
+      if (url?.toString().trim() === "") {
+        url = user?.picture as FormDataEntryValue | null;
+      }
+
+      if (name?.toString().trim() === "") {
+        name = user?.name as FormDataEntryValue | null;
+      }
 
       const response = await axios.patch(
         "api/chats/update",
