@@ -114,6 +114,7 @@ const Profile = () => {
           </div>
         </div>
       </dialog>
+      <button className="btn btn-ghost" onClick={()=>navigate("/chat")}>Close</button>
     </div>
   );
 };
