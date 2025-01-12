@@ -1,10 +1,11 @@
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const MagicLink = () => {
   const [load, setLoad] = useState(false);
-
+  const navigate = useNavigate();
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -29,8 +30,10 @@ const MagicLink = () => {
       {load ? (
         <div>
           <h1 className="text-xl text-center">
-                      Hey there! Check your mail for the magic link. It’s gonna expire in 5 minutes and it’s a one-time deal, ya know? If you don’t see the link
-            <br />          
+            Hey there! Check your mail for the magic link. It’s gonna expire in
+            5 minutes and it’s a one-time deal, ya know? If you don’t see the
+            link
+            <br />
             <button onClick={() => setLoad(false)} className="btn btn-link">
               <h1 className="text-xl">Just enter your email again!</h1>
             </button>
@@ -64,6 +67,10 @@ const MagicLink = () => {
           <input type="submit" className="btn btn-ghost" />
         </form>
       )}
+      <br />
+      <button className="btn btn-outline" onClick={() => navigate("/")}>
+        Cancel
+      </button>
     </div>
   );
 };
