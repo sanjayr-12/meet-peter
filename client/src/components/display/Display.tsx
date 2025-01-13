@@ -59,7 +59,9 @@ const Display = () => {
                 <div className="chat-bubble">{chat.messages.ai}</div>
               </div>
               {index === data.length - 1 && loading && (
-                <span>Peter is Typing...</span>
+                <div className="ml-5 mt-4">
+                  <span className="loading loading-dots loading-xs"></span>
+                </div>
               )}
             </div>
           );
