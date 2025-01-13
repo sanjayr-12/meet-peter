@@ -2,12 +2,13 @@ import axios from "axios";
 import useStore from "../../store/zustand";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 const Nav = () => {
   const user = useStore((state) => state.user);
   const setToken = useStore((state) => state.setToken);
   const setRender = useStore((state) => state.setRender);
   const naviagte = useNavigate();
+  const modelRef = useRef<HTMLDialogElement>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const handleLogout = async () => {
     try {
@@ -19,32 +20,24 @@ const Nav = () => {
       console.log(error);
     }
   };
-  // function toSentanceCase(str: string) {
-  //   if (str) {
-  //     return str.replace(
-  //       /\w\S*/g,
-  //       (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-  //     );
-  //   }
-  // }
+
+  const handleOpenModel = () => {
+    if (modelRef.current) {
+      modelRef.current.showModal();
+    }
+  };
+
   const handleDelete = async () => {
-    const command = prompt(
-      "Type DELETE, if you want to delete your chat history, with no spaces"
-    );
-    if (command === "DELETE") {
-      try {
-        setDeleteLoading(true);
-        await axios.delete("/api/chats/delete", {
-          withCredentials: true,
-        });
-        setRender();
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setDeleteLoading(false);
-      }
-    } else {
-      alert("Wrong Command, make sure to have no spaces");
+    try {
+      setDeleteLoading(true);
+      await axios.delete("/api/chats/delete", {
+        withCredentials: true,
+      });
+      setRender();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -58,11 +51,33 @@ const Nav = () => {
         <a className="btn btn-ghost text-xl">Meet Peter</a>
       </div>
       <div className="menu menu-horizontal px-1 gap-3">
-        <button onClick={handleDelete} disabled={deleteLoading}>
+        <button onClick={handleOpenModel} disabled={deleteLoading}>
           {deleteLoading ? "Deleting..." : "Delete"}
         </button>
+
+        {/* Model open */}
+
+        <dialog id="my_modal_1" className="modal" ref={modelRef}>
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Are you sure?</h3>
+            <p className="py-4">
+              Aw man, all our chat history is gonna be gone... just like my
+              hopes of ever fitting into those old jeans.
+            </p>
+            <div className="modal-action">
+              <form method="dialog" className="flex gap-3">
+                <button className="btn">Close</button>
+                <button className="btn btn-error" onClick={handleDelete}>
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
+        {/* Model close */}
+
         <div className="flex flex-row gap-3">
-          {/* <h3>{user ? toSentanceCase(user?.name) : "Loading..."}</h3> */}
           <img
             src={user?.picture}
             alt="profile"
