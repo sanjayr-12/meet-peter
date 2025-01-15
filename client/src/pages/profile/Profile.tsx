@@ -18,6 +18,10 @@ const Profile = () => {
       let url = formData.get("url");
       let name = formData.get("name");
 
+      if (url?.toString().trim() === "" && name?.toString().trim() === "") {
+        return;
+      }
+
       if (url?.toString().trim() === "") {
         url = user?.picture as FormDataEntryValue | null;
       }
