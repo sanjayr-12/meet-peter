@@ -47,6 +47,11 @@ const Display = () => {
         {/* <ChatProfile img={url} /> */}
         <div className="chat-bubble">Hey buddy...</div>
       </div>
+      {loading && data.length === 0 && (
+        <div className="ml-5 mt-4">
+          <span className="loading loading-dots loading-xs"></span>
+        </div>
+      )}
       {data.length > 0 &&
         data.map((chat, index) => {
           return (

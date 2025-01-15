@@ -9,9 +9,11 @@ const Profile = () => {
   const navigate = useNavigate();
   const modalRef = useRef<HTMLDialogElement>(null);
   const [load, setLoad] = useState(false);
+  const [updateLoad, setUpdateLoad] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setUpdateLoad(true);
       const formData = new FormData(e.currentTarget);
       let url = formData.get("url");
       let name = formData.get("name");
@@ -36,6 +38,8 @@ const Profile = () => {
       } else {
         toast.error("Something went wrong");
       }
+    } finally {
+      setUpdateLoad(false);
     }
   };
 
@@ -66,9 +70,12 @@ const Profile = () => {
     <div className="min-h-screen flex flex-col items-center justify-center gap-10 max-w-[500px]">
       <Toaster />
       <h1 className="text-center text-xl">Update Profile</h1>
-      <form className="flex flex-col gap-9" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-9 justify-center items-center"
+        onSubmit={handleSubmit}
+      >
         <label className="input input-bordered flex items-center gap-2 p-6">
-          Image Url
+          Img Url:
           <input
             name="url"
             type="text"
@@ -77,7 +84,7 @@ const Profile = () => {
           />
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          Name
+          Name:
           <input
             type="text"
             className="grow"
@@ -85,7 +92,12 @@ const Profile = () => {
             name="name"
           />
         </label>
-        <input type="submit" className="btn btn-ghost" value="Update" />
+        <input
+          type="submit"
+          className="btn btn-ghost"
+          value={updateLoad ? "updating..." : "update"}
+          disabled={updateLoad}
+        />
       </form>
       <button className="btn btn-error" onClick={handleDeleteClick}>
         Delete account
