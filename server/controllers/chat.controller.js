@@ -63,6 +63,11 @@ export const updateProfile = async (req, res) => {
   try {
     const id = req.user.id;
     const { url, name } = req.body;
+
+    if(!url && !name){
+      return res.status(400).json({error:"Empty fields"})
+    }
+
     const checkUrl = await checkImage(url);
 
     if (!checkUrl) {
