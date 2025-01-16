@@ -10,6 +10,8 @@ const Profile = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [load, setLoad] = useState(false);
   const [updateLoad, setUpdateLoad] = useState(false);
+  const setUser = useStore((state) => state.setUser);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -35,6 +37,7 @@ const Profile = () => {
         { url, name },
         { withCredentials: true }
       );
+      setUser(response.data.data);
       toast.success(response.data.message);
     } catch (error) {
       if (error instanceof AxiosError) {

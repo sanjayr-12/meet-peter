@@ -64,8 +64,8 @@ export const updateProfile = async (req, res) => {
     const id = req.user.id;
     const { url, name } = req.body;
 
-    if(!url && !name){
-      return res.status(400).json({error:"Empty fields"})
+    if (!url && !name) {
+      return res.status(400).json({ error: "Empty fields" });
     }
 
     const checkUrl = await checkImage(url);
@@ -74,14 +74,20 @@ export const updateProfile = async (req, res) => {
       return res.status(400).json({ error: "Image url is invalid" });
     }
 
-    const updateUser = await userModel.findByIdAndUpdate(id, {
-      picture: url,
-      name,
-    });
+    const updateUser = await userModel.findByIdAndUpdate(
+      id,
+      {
+        picture: url,
+        name,
+      },
+      { new: true }
+    );
     if (!updateUser) {
       return res.status(400).json({ error: "Error in updating" });
     }
-    return res.status(200).json({ message: "Profile Updated" });
+    return res
+      .status(200)
+      .json({ message: "Profile Updated", data: updateUser });
   } catch (error) {
     return res
       .status(500)
