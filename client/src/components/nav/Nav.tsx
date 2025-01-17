@@ -1,23 +1,18 @@
 import axios from "axios";
 import useStore from "../../store/zustand";
-import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import LogoutModel from "../display/LogoutModel";
 const Nav = () => {
   const user = useStore((state) => state.user);
-  const setToken = useStore((state) => state.setToken);
   const setRender = useStore((state) => state.setRender);
   const naviagte = useNavigate();
   const modelRef = useRef<HTMLDialogElement>(null);
+  const logoutModelRef = useRef<HTMLDialogElement>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const handleLogout = async () => {
-    try {
-      await axios.post("/api/user/logout", {}, { withCredentials: true });
-      naviagte("/");
-      googleLogout();
-      setToken(null);
-    } catch (error) {
-      console.log(error);
+    if (logoutModelRef.current) {
+      logoutModelRef.current.showModal();
     }
   };
 
@@ -57,7 +52,7 @@ const Nav = () => {
 
         {/* Model open */}
 
-        <dialog id="my_modal_1" className="modal" ref={modelRef}>
+        <dialog id="my_model_1" className="modal" ref={modelRef}>
           <div className="modal-box">
             <h3 className="font-bold text-lg">Are you sure?</h3>
             <p className="py-4">
@@ -84,7 +79,12 @@ const Nav = () => {
             className="w-8 rounded-full cursor-pointer"
             onClick={handleProfile}
           />
+
           <button onClick={handleLogout}>Logout</button>
+
+          {/* This is opening of logout model bruhh */}
+          <LogoutModel model={logoutModelRef} />
+          {/* Closing of logout model bruhh.. */}
         </div>
       </div>
     </div>
