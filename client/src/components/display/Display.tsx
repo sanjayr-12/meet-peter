@@ -57,11 +57,15 @@ const Display = () => {
           return (
             <div key={chat._id} className="chat-main-container">
               <div className="chat chat-end">
-                <div className="chat-bubble">{chat.messages.user}</div>
+                <div className="chat-bubble break-words max-w-[80%]">
+                  {chat.messages.user}
+                </div>
               </div>
               <div className="chat chat-start">
                 {/* <ChatProfile img={url} /> */}
-                <div className="chat-bubble">{chat.messages.ai}</div>
+                <div className="chat-bubble max-w-[80%] break-words">
+                  {chat.messages.ai}
+                </div>
               </div>
               {index === data.length - 1 && loading && (
                 <div className="ml-5 mt-4">
