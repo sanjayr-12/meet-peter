@@ -11,7 +11,8 @@ export async function MagicMail(token, mail) {
       },
       to: mail,
       subject: "Magic Link buddy",
-      html: `<a href="${process.env.ORIGIN}/api/user/magic?auth=${token}" target="_blank">Magic Link</a>`,
+      html: `<p>Hey there! Here's your one-time use Magic Link, and it will expire after 5 minutes. Use it wisely!</p>
+             <a href="${process.env.ORIGIN}/api/user/magic?auth=${token}" target="_blank">Magic Link</a>`,
     });
   } catch (error) {
     throw error;
