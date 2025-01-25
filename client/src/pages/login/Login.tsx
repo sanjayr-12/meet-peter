@@ -1,10 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../store/types";
 import Goto from "../../components/goto/Goto";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const token = useStore((state: State) => state.token);
@@ -23,7 +24,13 @@ const Login = () => {
         setToken(null);
         setUser(null);
         navigate("/");
-        console.log(error);
+        if (error instanceof AxiosError) {
+          toast.error(
+            error?.response?.data === ""
+              ? "Server is Down"
+              : error?.response?.data?.error
+          );
+        }
       }
     }
     if (token) {
@@ -68,6 +75,7 @@ const Login = () => {
           </button>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

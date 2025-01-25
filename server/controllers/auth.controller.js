@@ -30,7 +30,7 @@ export const login = async (req, res) => {
     generateToken(newUser._id, res);
     return res.status(200).json({ message: "Signed in", newUser });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error " + error.message });
+    res.status(500).json({ error: "Internal server error" + error.message });
   }
 };
 
