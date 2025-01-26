@@ -3,7 +3,6 @@ import axios, { AxiosError } from "axios";
 import useStore from "../../store/zustand";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
-// import ChatProfile from "./ChatProfile";
 import { Chat } from "../../store/types";
 
 const Display = () => {
@@ -12,7 +11,6 @@ const Display = () => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const setLoading = useStore((state) => state.setLoading);
   const loading = useStore((state) => state.loading);
-  // const url = "https://i.ibb.co/0YQMmyB/icon-1.png";
 
   useEffect(() => {
     async function getAll() {
@@ -44,7 +42,6 @@ const Display = () => {
     <div className="pt-20 pb-20">
       <Toaster />
       <div className="chat chat-start">
-        {/* <ChatProfile img={url} /> */}
         <div className="chat-bubble">Hey buddy...</div>
       </div>
       {loading && data.length === 0 && (
@@ -62,7 +59,6 @@ const Display = () => {
                 </div>
               </div>
               <div className="chat chat-start">
-                {/* <ChatProfile img={url} /> */}
                 <div className="chat-bubble max-w-[80%] break-words">
                   {chat.messages.ai}
                 </div>
