@@ -103,8 +103,8 @@ export const deleteAccount = async (req, res) => {
     if (!deleteUser) {
       return res.status(400).json({ error: "Error in deleting account" });
     }
-    res.cookie("token", "", { maxAge: 0 });
-    res.status(200).json({ message: "Account deleted" });
+    await res.cookie("token", "", { maxAge: 0 });
+    return res.status(200).json({ message: "Account deleted" });
   } catch (error) {
     return res
       .status(500)

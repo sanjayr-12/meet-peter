@@ -50,11 +50,11 @@ const Profile = () => {
     }
   };
 
-  const handleDeleteClick = () => {
-    if (modalRef.current) {
-      modalRef.current.showModal();
-    }
-  };
+  // const handleDeleteClick = () => {
+  //   if (modalRef.current) {
+  //     modalRef.current.showModal();
+  //   }
+  // };
 
   const handleDelete = async () => {
     try {
@@ -106,9 +106,9 @@ const Profile = () => {
           disabled={updateLoad}
         />
       </form>
-      <button className="btn btn-error" onClick={handleDeleteClick}>
+      {/* <button className="btn btn-error" onClick={handleDeleteClick}>
         Delete account
-      </button>
+      </button> */}
 
       {/* Model bro... */}
       <dialog ref={modalRef} id="my_modal_1" className="modal">
