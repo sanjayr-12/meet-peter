@@ -3,6 +3,7 @@ import useStore from "../../store/zustand";
 import toast, { Toaster } from "react-hot-toast";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import { googleLogout } from "@react-oauth/google";
 
 const Profile = () => {
   const user = useStore((state) => state.user);
@@ -11,6 +12,7 @@ const Profile = () => {
   const [load, setLoad] = useState(false);
   const [updateLoad, setUpdateLoad] = useState(false);
   const setUser = useStore((state) => state.setUser);
+  const setToken = useStore((state) => state.setToken);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,11 +52,11 @@ const Profile = () => {
     }
   };
 
-  // const handleDeleteClick = () => {
-  //   if (modalRef.current) {
-  //     modalRef.current.showModal();
-  //   }
-  // };
+  const handleDeleteClick = () => {
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+  };
 
   const handleDelete = async () => {
     try {
@@ -62,6 +64,8 @@ const Profile = () => {
       await axios.delete("/api/chats/deleteAccount", {
         withCredentials: true,
       });
+      setUser(null);
+      setToken(null);
       navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -69,7 +73,9 @@ const Profile = () => {
       } else {
         toast.error("Something went wrong bro...");
       }
-      setLoad(true);
+      setLoad(false);
+    } finally {
+      setLoad(false);
     }
   };
 
@@ -106,9 +112,9 @@ const Profile = () => {
           disabled={updateLoad}
         />
       </form>
-      {/* <button className="btn btn-error" onClick={handleDeleteClick}>
+      <button className="btn btn-error" onClick={handleDeleteClick}>
         Delete account
-      </button> */}
+      </button>
 
       {/* Model bro... */}
       <dialog ref={modalRef} id="my_modal_1" className="modal">
