@@ -60,6 +60,16 @@ const Login = () => {
             So stop stalling, click that login button below, and let’s yap it
             up. C’mon, don’t leave me hanging!
           </p>
+          {/* <button className="btn btn-primary mx-auto text-lg"> */}
+          <a
+            href="https://omgpeter.tech"
+            className="btn btn-primary mx-auto text-lg"
+          >
+            {" "}
+            <button>Subscribe to NewsLetter</button>
+          </a>
+
+          <br />
           <Goto />
           <br />
           <GoogleLogin
