@@ -1,5 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ const Login = () => {
   const setToken = useStore((state: State) => state.setToken);
   const navigate = useNavigate();
   const setUser = useStore((state) => state.setUser);
+  const [loaded, setLoaded] = useState(true);
+
   useEffect(() => {
     async function verify() {
       try {
@@ -43,13 +45,20 @@ const Login = () => {
     navigate("/magic");
   };
 
+  const handleImageLoad = () => {
+    setLoaded(true);
+  };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col items-center justify-center">
+        {!loaded && <div className="skeleton w-[14rem] h-72"></div>}
         <img
           src="https://i.ibb.co/xMXzvBg/peter.jpg"
+          alt="chat avatar"
           className="max-w-sm rounded-lg shadow-2xl max-h-72"
-          alt="peter image"
+          onLoad={handleImageLoad}
+          style={loaded ? {} : { display: "none" }}
         />
         <div className="flex flex-col justify-center items-center">
           <h2 className="text-5xl font-bold">Hey There, You!</h2>
@@ -80,7 +89,6 @@ const Login = () => {
             href="https://omgpeter.tech"
             className="btn btn-primary mx-auto text-lg"
           >
-            {" "}
             <button>Subscribe to NewsLetter</button>
           </a>
         </div>
