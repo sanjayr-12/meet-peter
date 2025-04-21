@@ -11,12 +11,19 @@ import path from "path";
 import { fileURLToPath } from "url";
 import selfRequest from "./routes/common/self.routes.js";
 import { reStart } from "./cron/cron.js";
+import rateLimit from "express-rate-limit";
 
 configDotenv();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const numCPUs = os.availableParallelism();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requests from this IP, please try again later.",
+});
 
 if (cluster.isPrimary) {
   console.log(`Primary process ${process.pid} is running`);
@@ -35,6 +42,8 @@ if (cluster.isPrimary) {
   app.use(express.json());
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "../client/dist")));
+
+  app.use(limiter);
 
   app.use(
     cors({
