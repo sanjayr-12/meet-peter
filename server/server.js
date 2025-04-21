@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";
 import selfRequest from "./routes/common/self.routes.js";
 import { reStart } from "./cron/cron.js";
 import rateLimit from "express-rate-limit";
+import lusca from "lusca";
 
 configDotenv();
 
@@ -44,6 +45,12 @@ if (cluster.isPrimary) {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
   app.use(limiter);
+
+  app.use(
+    lusca({
+      csrf: true,
+    })
+  );
 
   app.use(
     cors({

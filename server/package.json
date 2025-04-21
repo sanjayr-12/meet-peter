@@ -23,6 +23,7 @@
     "express-rate-limit": "^7.5.0",
     "google-auth-library": "^9.14.2",
     "jsonwebtoken": "^9.0.2",
+    "lusca": "^1.7.0",
     "mongoose": "^8.8.1",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
