@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const numCPUs = os.availableParallelism();
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
+  windowMs: 15 * 60 * 1000,
   max: 100,
   message: "Too many requests from this IP, please try again later.",
 });
@@ -33,16 +33,17 @@ if (cluster.isPrimary) {
   }
 
   cluster.on("exit", (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} exited. Spawning a new one...`);
+    console.log(`Worker ${worker.process.pid} exited. Restarting...`);
     cluster.fork();
   });
 } else {
   const app = express();
 
+  app.set("trust proxy", true);
+
   app.use(express.json());
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "../client/dist")));
-
   app.use(limiter);
 
   app.use(
