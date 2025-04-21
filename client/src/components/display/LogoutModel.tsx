@@ -14,7 +14,7 @@ const LogoutModel: React.FC<LogoutModelProps> = ({ model }) => {
   const handleLogout = async () => {
     try {
       await axios.post("/api/user/logout", {}, { withCredentials: true });
-      navigate("/");
+      navigate("/login");
       googleLogout();
       setToken(null);
     } catch (error) {

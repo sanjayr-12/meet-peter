@@ -66,7 +66,7 @@ const Profile = () => {
       });
       setUser(null);
       setToken(null);
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.error);
