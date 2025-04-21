@@ -4,7 +4,6 @@ import axios, { AxiosError } from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../store/types";
-// import Goto from "../../components/goto/Goto";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
@@ -69,9 +68,6 @@ const Login = () => {
             So stop stalling, click that login button below, and let’s yap it
             up. C’mon, don’t leave me hanging!
           </p>
-
-          {/* <br />
-          <Goto /> */}
           <br />
           <GoogleLogin
             onSuccess={(response) => {
