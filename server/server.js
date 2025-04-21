@@ -1,3 +1,5 @@
+import cluster from "cluster";
+import os from "os";
 import express from "express";
 import { config as configDotenv } from "dotenv";
 import cors from "cors";
@@ -14,38 +16,52 @@ configDotenv();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const numCPUs = os.availableParallelism();
 
-const app = express();
+if (cluster.isPrimary) {
+  console.log(`Primary process ${process.pid} is running`);
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../client/dist")));
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-app.use(
-  cors({
-    origin: process.env.ORIGIN,
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Cache-Control",
-      "Expires",
-      "Pragma",
-    ],
-    credentials: true,
-  })
-);
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} exited. Spawning a new one...`);
+    cluster.fork();
+  });
+} else {
+  const app = express();
 
-app.use("/api/user", authRoutes);
-app.use("/api/chats", chatRoutes);
-app.use("/api/self", selfRequest);
+  app.use(express.json());
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-});
+  app.use(
+    cors({
+      origin: process.env.ORIGIN,
+      methods: ["GET", "POST", "DELETE", "PUT"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "Cache-Control",
+        "Expires",
+        "Pragma",
+      ],
+      credentials: true,
+    })
+  );
 
-app.listen(3000, () => {
-  console.log("server is started");
-  reStart();
-  connectDB();
-});
+  app.use("/api/user", authRoutes);
+  app.use("/api/chats", chatRoutes);
+  app.use("/api/self", selfRequest);
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+  });
+
+  app.listen(3000, () => {
+    console.log(`Worker ${process.pid} running on port 3000`);
+    reStart();
+    connectDB();
+  });
+}
