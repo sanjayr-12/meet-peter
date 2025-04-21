@@ -39,7 +39,7 @@ if (cluster.isPrimary) {
 } else {
   const app = express();
 
-  app.set("trust proxy", true);
+  app.set("trust proxy", 1);
 
   app.use(express.json());
   app.use(cookieParser());
