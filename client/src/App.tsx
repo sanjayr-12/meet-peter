@@ -9,9 +9,9 @@ const App = () => {
   return (
     <div className="bg-base-200 min-h-screen max-w-[500px] mr-auto ml-auto">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route element={<Verify />}>
-          <Route path="/chat" element={<Chats />} />
+          <Route path="/" element={<Chats />} />
           <Route path="/profile" element={ <Profile/>} />
         </Route>
         <Route path="/magic" element={<MagicLink />} />

@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 import useStore from "../../store/zustand";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../store/types";
-import Goto from "../../components/goto/Goto";
+// import Goto from "../../components/goto/Goto";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
@@ -21,11 +21,11 @@ const Login = () => {
           token,
         });
         setUser(response.data.data);
-        navigate("/chat");
+        navigate("/");
       } catch (error) {
         setToken(null);
         setUser(null);
-        navigate("/");
+        navigate("/login");
         if (error instanceof AxiosError) {
           toast.error(
             error?.response?.data === ""
@@ -70,8 +70,8 @@ const Login = () => {
             up. C’mon, don’t leave me hanging!
           </p>
 
-          <br />
-          <Goto />
+          {/* <br />
+          <Goto /> */}
           <br />
           <GoogleLogin
             onSuccess={(response) => {

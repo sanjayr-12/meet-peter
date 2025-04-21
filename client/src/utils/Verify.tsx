@@ -18,9 +18,8 @@ const Verify = () => {
         });
         setUser(response.data.data);
         setLoading(false);
-        naviagte("/chat");
       } catch (error) {
-        naviagte("/");
+        naviagte("/login");
         setUser(null);
         console.log(error);
       }
