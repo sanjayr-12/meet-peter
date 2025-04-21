@@ -69,7 +69,7 @@ if (cluster.isPrimary) {
     res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
   });
 
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log(`Worker ${process.pid} running on port 3000`);
     reStart();
     connectDB();
