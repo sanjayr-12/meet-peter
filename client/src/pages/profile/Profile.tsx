@@ -139,7 +139,7 @@ const Profile = () => {
           </div>
         </div>
       </dialog>
-      <button className="btn btn-ghost" onClick={() => navigate("/chat")}>
+      <button className="btn btn-ghost" onClick={() => navigate("/")}>
         Close
       </button>
     </div>
