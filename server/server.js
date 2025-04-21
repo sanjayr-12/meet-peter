@@ -12,7 +12,6 @@ import { fileURLToPath } from "url";
 import selfRequest from "./routes/common/self.routes.js";
 import { reStart } from "./cron/cron.js";
 import rateLimit from "express-rate-limit";
-import lusca from "lusca";
 
 configDotenv();
 
@@ -21,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const numCPUs = os.availableParallelism();
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, 
   max: 100,
   message: "Too many requests from this IP, please try again later.",
 });
@@ -45,12 +44,6 @@ if (cluster.isPrimary) {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
   app.use(limiter);
-
-  app.use(
-    lusca({
-      csrf: true,
-    })
-  );
 
   app.use(
     cors({
