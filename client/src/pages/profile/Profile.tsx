@@ -52,7 +52,8 @@ const Profile = () => {
     }
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (modalRef.current) {
       modalRef.current.showModal();
     }
@@ -80,69 +81,88 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-10 max-w-[500px]">
-      <Toaster />
-      <h1 className="text-center text-xl">Update Profile</h1>
-      <form
-        className="flex flex-col gap-9 justify-center items-center"
-        onSubmit={handleSubmit}
-      >
-        <label className="input input-bordered flex items-center gap-2 p-6">
-          Img Url:
-          <input
-            name="url"
-            type="text"
-            className="grow"
-            placeholder="https://some.com/chicken.png"
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          Name:
-          <input
-            type="text"
-            className="grow"
-            placeholder={user?.name}
-            name="name"
-          />
-        </label>
-        <input
-          type="submit"
-          className="btn btn-ghost"
-          value={updateLoad ? "updating..." : "update"}
-          disabled={updateLoad}
-        />
-      </form>
-      <button className="btn btn-error" onClick={handleDeleteClick}>
-        Delete account
-      </button>
-
-      {/* Model bro... */}
-      <dialog ref={modalRef} id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Delete Account</h3>
-          <p className="py-4">
-            Are you sure you want to delete your account? All your chat
-            histories and account details will be deleted. This action cannot be
-            undone
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Cancel</button>
-            </form>
-            <button
-              className="btn btn-error"
-              onClick={handleDelete}
-              disabled={load}
-            >
-              {load ? "Deleting..." : "Delete"}
-            </button>
+    <dialog className="modal modal-bottom sm:modal-middle" id="profile-model">
+      <div className="modal-box">
+        <div className="flex justify-end">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost">✕</button>
+          </form>
+        </div>
+        <div className="flex justify-center">
+          <div className="avatar">
+            <div className="w-24 rounded-full">
+              <img src={user?.picture} />
+            </div>
           </div>
         </div>
-      </dialog>
-      <button className="btn btn-ghost" onClick={() => navigate("/")}>
-        Close
-      </button>
-    </div>
+        <br />
+        <h1 className="text-center text-xl mb-6">Update Profile</h1>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <label className="input input-bordered flex items-center gap-2">
+            Img Url:
+            <input
+              name="url"
+              type="text"
+              className="grow"
+              placeholder="https://some.com/chicken.png"
+            />
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            Name:
+            <input
+              type="text"
+              className="grow"
+              placeholder={user?.name}
+              name="name"
+            />
+          </label>
+          <div className="flex gap-4 justify-end mt-4">
+            <button
+              type="submit"
+              className="btn btn-warning"
+              disabled={updateLoad}
+            >
+              {updateLoad ? "updating..." : "update"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-error"
+              onClick={handleDeleteClick}
+            >
+              Delete account
+            </button>
+          </div>
+        </form>
+
+        {/* Delete Confirmation Modal */}
+        <dialog ref={modalRef} className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Delete Account</h3>
+            <p className="py-4">
+              Are you sure you want to delete your account? All your chat
+              histories and account details will be deleted. This action cannot
+              be undone
+            </p>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn">Cancel</button>
+              </form>
+              <button
+                className="btn btn-error"
+                onClick={handleDelete}
+                disabled={load}
+              >
+                {load ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </dialog>
+      </div>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
+      <Toaster />
+    </dialog>
   );
 };
 

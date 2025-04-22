@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Verify from "./utils/Verify";
 import Chats from "./pages/chats/Chats";
-import MagicLink from "./pages/magic/MagicLink"
-import Profile from "./pages/profile/Profile";
+import MagicLink from "./pages/magic/MagicLink";
+import Page404 from "./pages/404/page404";
 
 const App = () => {
   return (
@@ -12,9 +12,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route element={<Verify />}>
           <Route path="/" element={<Chats />} />
-          <Route path="/profile" element={ <Profile/>} />
         </Route>
         <Route path="/magic" element={<MagicLink />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
   );
