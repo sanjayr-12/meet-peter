@@ -3,7 +3,7 @@ import Login from "./pages/login/Login";
 import Verify from "./utils/Verify";
 import Chats from "./pages/chats/Chats";
 import MagicLink from "./pages/magic/MagicLink";
-import Page404 from "./pages/404/page404";
+import Page404 from "./pages/404/Page404";
 
 const App = () => {
   return (
