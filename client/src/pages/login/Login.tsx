@@ -75,6 +75,7 @@ const Login = () => {
             }}
             text={"continue_with"}
             shape={"circle"}
+            useOneTap
           />
           <br />
           <button className="btn btn-ghost" onClick={handleMagic}>
