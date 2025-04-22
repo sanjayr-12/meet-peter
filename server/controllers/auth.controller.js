@@ -111,7 +111,7 @@ export const verifyMagic = async (req, res) => {
     const checkUser = await userModel.findOne({ email: checkMagic.email });
     if (checkUser) {
       generateToken(checkUser._id, res);
-      return res.redirect("/chat");
+      return res.redirect("/");
     }
     const name = checkMagic.email;
     const username = name.split("@")[0];
@@ -123,7 +123,7 @@ export const verifyMagic = async (req, res) => {
     await newUser.save();
     generateToken(newUser._id, res);
     ThankMail(newUser.email);
-    res.redirect("/chat");
+    res.redirect("/");
   } catch (error) {
     return res
       .status(500)
