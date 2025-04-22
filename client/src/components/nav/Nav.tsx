@@ -1,12 +1,11 @@
 import axios from "axios";
 import useStore from "../../store/zustand";
-import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import LogoutModel from "../display/LogoutModel";
+import Profile from "../../pages/profile/Profile";
 const Nav = () => {
   const user = useStore((state) => state.user);
   const setRender = useStore((state) => state.setRender);
-  const naviagte = useNavigate();
   const modelRef = useRef<HTMLDialogElement>(null);
   const logoutModelRef = useRef<HTMLDialogElement>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -34,10 +33,6 @@ const Nav = () => {
     } finally {
       setDeleteLoading(false);
     }
-  };
-
-  const handleProfile = () => {
-    naviagte("/profile");
   };
 
   return (
@@ -77,7 +72,11 @@ const Nav = () => {
             src={user?.picture}
             alt="profile"
             className="w-8 rounded-full cursor-pointer"
-            onClick={handleProfile}
+            onClick={() =>
+              (
+                document.getElementById("profile-model") as HTMLDialogElement
+              )?.showModal()
+            }
           />
 
           <button onClick={handleLogout}>Logout</button>
@@ -87,6 +86,7 @@ const Nav = () => {
           {/* Closing of logout model bruhh.. */}
         </div>
       </div>
+      <Profile />
     </div>
   );
 };
